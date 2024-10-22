@@ -2,7 +2,7 @@ Cypress.Commands.add("getBySel", (selector, ...args) => {
     return cy.get(`[data-cy=${selector}]`, ...args)
   })
   
-  // Commande de connexion
+  // Commande de connexion au site web
   Cypress.Commands.add("login", () => {
     cy.visit("http://localhost:8080/#/")
     cy.getBySel("nav-link-login").click()
@@ -12,7 +12,7 @@ Cypress.Commands.add("getBySel", (selector, ...args) => {
     //Vérification de la présence du panier
     cy.getBySel("nav-link-cart").should('be.visible')
   })
-  
+
   // Commande pour vider le panier
   Cypress.Commands.add("clearCart", () => {
     cy.getBySel("nav-link-cart").click()
@@ -32,7 +32,6 @@ Cypress.Commands.add("getBySel", (selector, ...args) => {
      })
      cy.getBySel("cart-empty").should("be.visible")
    })
-  
   
   
   
