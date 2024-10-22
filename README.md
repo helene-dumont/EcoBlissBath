@@ -1,6 +1,11 @@
+<<<<<<< HEAD
 ## Eco Bliss Bath
 
 # Description du projet
+=======
+## Eco Bliss Bath  
+  ##### Description du projet 
+>>>>>>> f11e116a3962427bbeebdfb27015331f91b749b1
 
 Eco Bliss Bath est une start-up spécialisée dans la vente de produits de beauté écoresponsables dont le produit principal est un savon solide. La boutique prépare un site de vente en ligne.
 
@@ -8,20 +13,29 @@ Prérequis pour exécuter le projet : Node.js, Docker, NPM et Cypress.
 
 ## Installation
 
-    Téléchargez ou clonez le dépôt
+1. Téléchargez ou clonez le dépôt  
+  
+2. Back-end: 
+depuis un terminal ouvert dans le dossier du projet, saisir la commande :
 
-    Back-end:
-    depuis un terminal ouvert dans le dossier du projet, saisir la commande : 
-    docker-compose up         pour lancer le back-end
-    docker-compose down       pour stopper le back-end
+  _docker-compose up_  pour lancer le back-end
+  
+  _docker-compose down_                 pour stopper le back-end
 
-    Front-end:
-    depuis un terminal ouvert dans le dossier du projet, saisir la commande : 
-    npm install
-    npm start
+4. Front-end:  
+depuis un terminal ouvert dans le dossier du projet, lancer la commande :  
+  _npm install_  
+  _npm start_  
+  
+Ouvrez le site depuis la page (http://localhost:8080)  
+   
+4. Cypress:  
+depuis un terminal ouvert dans le dossier du projet, lancer la commande :   
+_npx cypress open_  
 
-    Ouvrez le site depuis la page (http://localhost:8080)
+## Données de Connexion au site Web    
 
+<<<<<<< HEAD
     Cypress:
     depuis un terminal ouvert dans le dossier du projet, saisir la commande :
     npx cypress open
@@ -35,4 +49,12 @@ Prérequis pour exécuter le projet : Node.js, Docker, NPM et Cypress.
 ## API
 
 Documentation API (swagger): (http://localhost:8081/api/doc)
+=======
+identifiant: test2@test.fr
 
+mot de passe: testtest
+
+## API
+>>>>>>> f11e116a3962427bbeebdfb27015331f91b749b1
+
+Documentation API (swagger): (http://localhost:8081/api/doc)  
