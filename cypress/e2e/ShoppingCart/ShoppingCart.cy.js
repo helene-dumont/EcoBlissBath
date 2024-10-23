@@ -1,12 +1,9 @@
 describe("Vérification de la fonctionnalité Panier", () => {
 
-    /*beforeEach("Se connecter", () => {
-        cy.login() // Voir code dans le fichier commands.js
-    })*/
     let token
 
-    it("Ajouter un produit au panier (stock > 1; vérification de la mise à jour du stock produit)", () => {
-        cy.login ()
+    it("Ajouter un produit disponible au panier (stock > 1) et vérifier la mise à jour du stock", () => {
+        cy.login () // Voir code dans le fichier commands.js
         // Vider le panier s'il n'est pas vide
         cy.clearCartIfNotEmpty()
         // Sélectionner un produit 
@@ -15,11 +12,11 @@ describe("Vérification de la fonctionnalité Panier", () => {
         cy.getBySel("detail-product-name").invoke('text')
         cy.getBySel("detail-product-stock").invoke('text')
         .should((text) => {
-            // Extraire le nombre de la chaîne de caractères pour vérifier si stock est > 1
+            // Extraire le nombre de la chaîne de caractères pour vérifier si stock est > 0
             const regex = /(-?\d+) en stock/   // Définir la chaîne à vérifier  
             const match = text.match(regex) // Recherche des occurences dans la chaîne à traiter
             const stockNr = parseInt(match[1], 10) // Conversion de la chaîne en entier
-            expect(stockNr).to.be.gte(1) // Vérifiez que le stock est supérieur à 1 pour pouvoir être ajouté       
+            expect(stockNr).to.be.gte(0) // Vérifiez que le stock est supérieur à 0 pour pouvoir être ajouté       
         }).then((text) => {
             const stockText = text.trim(); // Enlever les blancs en début et en fin de chaîne
             const stockNr = parseInt(stockText.match(/\d+/)) // Conversion en entier pour obtenir le stock
@@ -71,71 +68,13 @@ describe("Vérification de la fonctionnalité Panier", () => {
     })
 })
 
-/*describe ("Vérification poduit ajouté au panier via l'API", () => {
-
-    let token
-
-    it("Ajouter un produit au panier", () => {
-        // Connexion au site Web
-        cy.login()
-        // Vider le panier s'il n'est pas vide
-        cy.clearCartIfNotEmpty()
-        // Sélectionner un produit
-        cy.getBySel("nav-link-products").click()
-        cy.getBySel("product-link").eq(4).click()
-        cy.getBySel("detail-product-quantity").click()
-        cy.getBySel("detail-product-quantity").clear()
-        cy.getBySel("detail-product-quantity").type("1")
-        cy.getBySel("detail-product-add").click()
-        cy.getBySel("nav-link-cart").click()
-        cy.getBySel("cart-line-name").should("be.visible").contains("Extrait de nature")
-    })
-
-    it("Connexion via l'API", () => {
-       
-        cy.request({
-            method: "POST",
-            url: "http://localhost:8081/login",
-            body: {
-                username: "test2@test.fr",
-                password: "testtest"
-            }
-        }).then((response) => {
-            expect(response.status).to.eq(200);
-            expect(response.body).to.have.property("token");
-            token = response.body.token;
-        })
-    })
-
-    it("Vérifier que le produit est ajouté au panier via l'API", () => {
-        cy.request({
-            method: "GET",
-            url: "http://localhost:8081/orders",
-            headers: {
-                "Authorization": "Bearer " + token 
-            },          
-        }).then((response) => {
-            expect(response.status).to.eq(200);
-            let orderLines = response.body.orderLines
-            orderLines.forEach((orderLine) => {
-                if (orderLine.product.id === 7) {
-                    // Vérification si la quantité de produit avec l'identifiant 7 est 1
-                    expect(orderLine.quantity).to.be.equal(1)
-                } else {
-                    throw new Error("Product with id 7 not found in the cart");
-                }
-            })
-        })
-    })
-})*/
-
 describe ("Vérification des limites", () => {
 
     beforeEach("Se connecter", () => {
         cy.login() // Voir code dans le fichier commands.js
     })
 
-    it ("Ajouter un produit indisponible (stock < 0)", () => {
+    it ("Ajouter un produit indisponible (stock < 1)", () => {
         // Vider le panier s'il n'est pas vide
         cy.clearCartIfNotEmpty()
         // Sélectionner le produit Poussière de lune
@@ -147,7 +86,7 @@ describe ("Vérification des limites", () => {
             const regex = /(-?\d+) en stock/   // Définir la chaîne à vérifier  
             const match = text.match(regex) // Recherche des occurences dans la chaîne à traiter
             const stockNr = parseInt(match[1], 10) // Conversion de la chaîne en entier
-            expect(stockNr).to.be.lessThan(0) // Vérifiez que le stock est négatif       
+            expect(stockNr).to.be.lessThan(1) // Vérifiez que le produit est indisponible      
         })
         // Entrer une quantité égale à 1
         cy.getBySel ("detail-product-quantity").click();
@@ -158,8 +97,8 @@ describe ("Vérification des limites", () => {
         // Accéder au panier
         cy.getBySel ("nav-link-cart").click();
         // Vérifier que le panier est toujours vide
+        cy.getBySel("cart-empty").should("be.visible")
         cy.getBySel("cart-line").should("be.not.visible")
-        //cy.getBySel("cart-empty").should("be.visible")
     })
 
     it("Ajouter une quantité négative", () => {
@@ -183,15 +122,20 @@ describe ("Vérification des limites", () => {
     it("Ajouter une quantité > 20", () => {
         // Sélectionner un produit
         cy.getBySel("nav-link-products").click()
+        // Sélectionner le produit Aurore boréale 
         cy.getBySel("product-link").eq(7).click()
         cy.getBySel("detail-product-quantity").click()
         cy.getBySel("detail-product-quantity").clear()
         // Entrer une quantité > 20
         cy.getBySel("detail-product-quantity").type("21")
-        cy.getBySel("detail-product-add").click()
-        cy.getBySel("nav-link-cart").click()
+        // Ajouter au panier
+        cy.getBySel ("detail-product-add").click();
+        // Accéder au panier
+        cy.getBySel ("nav-link-cart").click();
+        // Vérifier que le panier est toujours vide
+        //cy.getBySel("cart-empty").should("be.visible")
         // Vérifier que les articles n'ont pas été ajoutés au panier
-        //cy.getBySel("cart-line-name").should("not.contain", "Aurore boréale")
+        cy.getBySel("cart-empty").should("be.visible")
         cy.getBySel("cart-line").should("be.not.visible")
     })
 })

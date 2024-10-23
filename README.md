@@ -11,6 +11,7 @@ Prérequis pour exécuter le projet : Node.js, Docker, NPM et Cypress.
 1. Téléchargez ou clonez le dépôt  
   
 2. **Back-end:** 
+
 depuis un terminal ouvert dans le dossier du projet, saisir la commande :
 
   _docker-compose up_  pour lancer le back-end
@@ -18,6 +19,7 @@ depuis un terminal ouvert dans le dossier du projet, saisir la commande :
   _docker-compose down_  pour stopper le back-end
 
 3. **Front-end:**  
+
 depuis un terminal ouvert dans le dossier du projet, saisir la commande :  
   _npm install_
   _npm start_
@@ -25,6 +27,7 @@ depuis un terminal ouvert dans le dossier du projet, saisir la commande :
 Ouvrez le site depuis la page (http://localhost:8080)  
    
 4. **Cypress:**  
+
 depuis un terminal ouvert dans le dossier du projet, saisir la commande :
     _npx cypress open_
     _npx cypress run_    pour l'exécution des tests

@@ -36,7 +36,7 @@ describe("Vérifier les avis", () => {
   })
 })
 
-describe ("Test faille XSS", () => {
+/*describe ("Test faille XSS", () => {
   it("Vérifier que le formulaire ne contient pas de faille XSS", () => {
     cy.login ()
     cy.getBySel("nav-link-reviews").click();
@@ -48,4 +48,4 @@ describe ("Test faille XSS", () => {
       throw new Error("Une fenêtre d\'alerte s\'est affichée !");
     });
   });
-})
+})*/

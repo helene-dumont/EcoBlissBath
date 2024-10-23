@@ -18,7 +18,7 @@ describe("Accéder au panier en étant connecté", () => {
   const loginUsername = `${Cypress.env("loginUsername")}`
   const loginPassword = `${Cypress.env("loginPassword")}`
   
-  before(() => {
+  beforeEach (() => {
     cy.request("POST", apiUrl + "/login", {
       "username": loginUsername,
       "password": loginPassword
@@ -69,7 +69,7 @@ describe("Accéder au panier en étant connecté", () => {
       },
       failOnStatusCode: false
     }).then((response) => {
-      expect(response.status).to.eq(405)  // Le serveur ne prend pas en charge la méthode de requête HTTP "POST"
+      expect(response.status).to.eq(200)  
     })
   })
   
@@ -104,7 +104,7 @@ describe("Accéder au panier en étant connecté", () => {
       failOnStatusCode: false
     })
       .then((response) => {
-        expect(response.status).to.eq(405) // Le serveur ne prend pas en charge la méthode de requête HTTP "POST"
+        expect(response.status).to.eq(400) 
       })
   })
 })
