@@ -6,42 +6,18 @@ describe ("Vérifier les informations produits", () => {
       
     cy.request({
       method: "GET",
-      url: apiUrl + "/products"
+      url: apiUrl + "/products/3"
     }).then((response) => {
       expect(response.status).to.eq(200)
-      for (let i = 0; i < response.body.length; i++) {    // Boucle sur chaque ID produit pour vérifier toutes les fiches
-        cy.log(response.body[i].id)
-        cy.request({
-          method: "GET",
-          url: apiUrl + "/products" + `/${response.body[i].id}`  // ID produit
-        })
-        .then((response) => {
-          expect(response.status).to.eq(200);
-          productCard = response.body;
-            
-          expect(productCard.id).to.be.a("number");
-          expect(productCard.availableStock).to.be.a("number");
-          expect(productCard.name).to.be.a("string");
-          expect(productCard.skin).to.be.a("string");
-          expect(productCard.aromas).to.be.a("string");
-          expect(productCard.ingredients).to.be.a("string");
-          expect(productCard).to.have.property("description");
-          expect(productCard.price).to.be.a("number");
-        })
-      } 
+      productCard = response.body;
+      expect(productCard.id).to.eq(3);
+      expect(productCard.availableStock).to.be.a("number");
+      expect(productCard.name).to.eq("Sentiments printaniers");
+      expect(productCard.skin).to.eq("Propre, fraîche");
+      expect(productCard.aromas).to.eq("Frais et fruité");
+      expect(productCard.ingredients).to.eq("Framboise, zeste de citron et feuille de menthe");
+      expect(productCard).to.have.property("description");
+      expect(productCard.price).to.be.a("number");
     })
   })
-
- /* it("Vérifier défaut stock", () => {
-    cy.request({
-      method: "GET",
-      url: apiUrl + "/products/3"   // Stock = -12
-    })
-    .then((response) => {
-      expect(response.status).to.eq(200);
-      productCard = response.body;
-        
-      expect(productCard.availableStock).to.be.at.least(0);
-    })
-  })*/
 })

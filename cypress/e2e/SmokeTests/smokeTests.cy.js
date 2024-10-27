@@ -26,5 +26,4 @@ describe("smoke tests",()=>{
         //Vérifier si champs disponibilité du produit est visible
         cy.getBySel("detail-product-stock").should("be.visible")
     })
-
 })

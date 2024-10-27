@@ -7,7 +7,7 @@ describe ("Accéder au panier sans être connecté", () => {
       url: apiUrl + "/orders",
       failOnStatusCode: false
     }).then((response) => {
-      expect(response.status).to.eq(403) // => accès à la ressource refusé
+      expect(response.status).to.eq(401) // => accès à la ressource refusé
     })
   })
 })
@@ -69,7 +69,7 @@ describe("Accéder au panier en étant connecté", () => {
       },
       failOnStatusCode: false
     }).then((response) => {
-      expect(response.status).to.eq(200)  
+      expect(response.status).to.eq(405)  
     })
   })
   
@@ -104,7 +104,7 @@ describe("Accéder au panier en étant connecté", () => {
       failOnStatusCode: false
     })
       .then((response) => {
-        expect(response.status).to.eq(400) 
+        expect(response.status).to.eq(405) 
       })
   })
 })

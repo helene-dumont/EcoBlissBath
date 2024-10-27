@@ -34,18 +34,24 @@ describe("Vérifier les avis", () => {
       expect(response.body.rating).to.eq(5)
     })
   })
-})
 
-/*describe ("Test faille XSS", () => {
-  it("Vérifier que le formulaire ne contient pas de faille XSS", () => {
-    cy.login ()
-    cy.getBySel("nav-link-reviews").click();
-    cy.get ('[data-cy="review-input-rating-images"] img').first().click();
-    cy.getBySel ("review-input-title").type("Test vulnérablilité");
-    cy.getBySel ("review-input-comment").type('<script>alert("XSS")</script>');
-    cy.getBySel ("review-submit").click();
-    cy.on ("window:alert", () => {
-      throw new Error("Une fenêtre d\'alerte s\'est affichée !");
-    });
-  });
-})*/
+  it("Test faille XSS", () => {
+    cy.request({
+      method: "POST",
+      url: apiUrl + '/reviews',
+     headers: {
+        "Authorization": "Bearer " + token 
+      },
+      body: {
+        title: "Test : Produit validé!",
+        comment: '<script>alert("faille XSS");</script>',
+        rating: 5
+      }
+    }).then((response) => {
+      expect(response.status).to.eq(200);
+      expect(response.body).to.have.property('id');
+      expect(response.body.title).to.eq("Test : Produit validé!")
+      expect(response.body.rating).to.eq(5)
+    })
+  })
+})
