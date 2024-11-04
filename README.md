@@ -21,16 +21,18 @@ depuis un terminal ouvert dans le dossier du projet, saisir la commande :
 3. **Front-end:**  
 
 depuis un terminal ouvert dans le dossier du projet, saisir la commande :  
-  _npm install_
-  _npm start_
+  _npm install_  
+    
+  _npm start_  
   
 Ouvrez le site depuis la page (http://localhost:8080)  
    
 4. **Cypress:**  
 
 depuis un terminal ouvert dans le dossier du projet, saisir la commande :  
-  _npx cypress open_   pour l'exécution des tests dans cypress
-  _npx cypress run_   pour l'exécution des tests dans le terminal
+  _npx cypress open_   pour l'exécution des tests dans cypress  
+    
+  _npx cypress run_   pour l'exécution des tests dans le terminal  
 
 
 ## Données de connexion au site Web 🔒
