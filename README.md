@@ -29,8 +29,8 @@ Ouvrez le site depuis la page (http://localhost:8080)
 4. **Cypress:**  
 
 depuis un terminal ouvert dans le dossier du projet, saisir la commande :
-    _npx cypress open_
-    _npx cypress run_    pour l'exécution des tests
+  _npx cypress open_
+  _npx cypress run_    pour l'exécution des tests
 
 ## Données de connexion au site Web 🔒
 
